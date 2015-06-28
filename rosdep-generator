@@ -13,7 +13,7 @@ parser.add_argument("--url", default="", help="Overwrite URL.")
 parser.add_argument("--output", default="", help="Overwrite output path.")
 args = parser.parse_args()
 
-url = args.url if args.urls else "https://github.com/%s/%s/raw/master/%s/distribution.yaml" % \
+url = args.url if args.url else "https://github.com/%s/%s/raw/master/%s/distribution.yaml" % \
         (args.org, args.repo, args.distro)
 
 print "Downloading: %s" % url
