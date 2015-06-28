@@ -10,6 +10,7 @@ parser.add_argument("--org", default="ros", help="Github org from which to fetch
 parser.add_argument("--repo", default="rosdistro", help="Github repo from which to fetch rosdistro.")
 parser.add_argument("--distro", default="indigo", help="Distro to generate for.")
 parser.add_argument("--url", default="", help="Overwrite URL.")
+parser.add_argument("--output", default="", help="Overwrite output path.")
 args = parser.parse_args()
 
 url = args.url if args.urls else "https://github.com/%s/%s/raw/master/%s/distribution.yaml" % \
@@ -38,7 +39,7 @@ for package in packages:
     for platform in platforms:
         output_yaml[package][platform] = "ros-%s-%s" % (args.distro, package.replace("_", "-"))
 
-output_file = "%s-%s-%s.yaml" % (args.org, args.repo, args.distro)
+output_file = args.output if args.output else "%s-%s-%s.yaml" % (args.org, args.repo, args.distro)
 print "Outputting: %s" % output_file
 with open(output_file, "w") as f:
     yaml.dump(output_yaml, f)
